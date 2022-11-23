@@ -58,8 +58,8 @@ const NewBook = () => {
                         <input type="text" name="author" className="form-control" onChange={handleForm} />
                     </div>
                     <div className="form-group mb-2">
-                        <label className="mb-1">Nuotrauka</label>
-                        <input type="text" name="photo" className="form-control" onChange={handleForm} />
+                        <label className="mb-1">Viršelis</label>
+                        <input type="text" name="image" className="form-control" onChange={handleForm} />
                     </div>
                     <div className="form-group mb-2">
                         <label className="mb-1">ISBN kodas</label>

@@ -84,8 +84,8 @@ const SingleBook = () => {
                 <div className="right">
                 <h1>{book.title}</h1>
                 <div className="content">
-                    <h5>Autorius: {book.author}</h5>
-                    <h6>ISBN kodas: {book.isbn}</h6>
+                    <h6><b>Autorius:</b> {book.author}</h6>
+                    <h6><b>ISBN kodas:</b> {book.isbn}</h6>
 
                 </div>
                 </div>
