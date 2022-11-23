@@ -84,7 +84,9 @@ const SingleBook = () => {
                 <div className="right">
                 <h1>{book.title}</h1>
                 <div className="content">
-                    {book.author}
+                    <h5>Autorius: {book.author}</h5>
+                    <h6>ISBN kodas: {book.isbn}</h6>
+
                 </div>
                 </div>
 
@@ -96,7 +98,7 @@ const SingleBook = () => {
 
                 <div className="form-comment">
                     
-                            
+                            <h6>Įvertinkite knygą:</h6>
                             {book.ratings ? 'Jūsų įvertinimas: ' + book.ratings.rating :
                                         <select onChange={(e) => handleRatings(e, book.bookId)}>
                                             <option value="1">1</option>
@@ -109,7 +111,7 @@ const SingleBook = () => {
 
 
                                     
-                            <button className="btn-single">Post</button>
+                            <button className="btn-single">Siųsti įvertinimą</button>
                      
                     
                    

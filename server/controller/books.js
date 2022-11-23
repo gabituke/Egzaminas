@@ -23,7 +23,7 @@ Router.get('/', async (req, res) => {
 
 
 
-Router.get('/single/:id', adminAuth, async (req, res) => {
+Router.get('/single/:id', async (req, res) => {
     try {
         const books = await db.Books.findByPk(req.params.id)
         res.json(books)
@@ -33,7 +33,7 @@ Router.get('/single/:id', adminAuth, async (req, res) => {
     }
 })
 
-Router.post('/new', booksValidator, async (req, res) => {
+Router.post('/new', adminAuth, async (req, res) => {
     try {
         req.body.userId = req.session.user.id
         

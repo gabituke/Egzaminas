@@ -50,7 +50,7 @@ const AdminBooks = () => {
     return (
         <>
             <div className="page-heading">
-                <h1>Įrašai</h1>
+                <h1>Visos knygos</h1>
             </div>
             {posts ?
                 <table className="table table-striped table-hover">

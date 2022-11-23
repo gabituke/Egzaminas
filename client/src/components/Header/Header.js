@@ -59,6 +59,12 @@ const Header = () => {
                         </Link>
              
                     </li>
+                    <Link 
+                                    to="/admin/books/new" 
+                                    className="nav-link px-2"
+                                    >
+                                       Naujas įrašas 
+                                    </Link>
                         </>
                         
                         

@@ -64,7 +64,7 @@ const EditOrder = () => {
         <>
             <div className="container mw-50">
                 <div className="page-heading">
-                    <h1>Patvirtinti irasa:</h1>
+                    <h1>Redaguoti įrašą:</h1>
                 </div>
                 <form onSubmit={(e) => handleSubmit(e)}>
                     <div className="form-group mb-2">
@@ -72,7 +72,7 @@ const EditOrder = () => {
                     <label className="mb-1">Viršelis:</label>
                         <input 
                             type="text" 
-                            name="title" 
+                            name="image" 
                             className="form-control" 
                             onChange={handleForm} 
                             value={form.image} 
@@ -99,7 +99,7 @@ const EditOrder = () => {
                         <label className="mb-1">ISBN kodas:</label>
                         <input 
                             type="text" 
-                            name="title" 
+                            name="isbn" 
                             className="form-control" 
                             onChange={handleForm} 
                             value={form.isbn} 

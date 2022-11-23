@@ -72,7 +72,7 @@ export const loginValidator = (req, res, next) => {
 export const commentsValidator = (req, res, next) => {
     const schema = Joi.object({
         comment: Joi.string().min(5).required(),
-        postId: Joi.number().required()
+        bookId: Joi.number().required()
     })
 
     validate(schema, req, res, next)
