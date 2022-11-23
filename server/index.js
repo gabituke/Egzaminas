@@ -1,7 +1,7 @@
 import express from 'express'
 import cors from 'cors'
 import session from 'express-session'
-import {Users, Books } from './controller/index.js'
+import {Users, Books, Ratings } from './controller/index.js'
 
 
 const app = express()
@@ -32,6 +32,7 @@ app.use(session({
 
 app.use('/api/users/', Users)
 app.use('/api/books/', Books)
+app.use('/api/ratings/', Ratings)
 
 
 //Paleidžiame serverį

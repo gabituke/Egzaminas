@@ -39,6 +39,7 @@ const AllBooks = () => {
 									<div className="card shadow-sm container-img">
 										<Link to={'/books/single/' + article.id}>
 											<img
+											
 												src={article.image}
 												alt={article.title}
 												className="bd-placeholder-img card-img-top"

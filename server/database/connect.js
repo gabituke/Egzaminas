@@ -1,6 +1,6 @@
 import { Sequelize } from 'sequelize'
 import mysql from 'mysql2/promise'
-import { Users, Books } from '../model/index.js'
+import { Users, Books, Ratings } from '../model/index.js'
 
 const database = {} 
 const credentials = {
@@ -25,11 +25,11 @@ try {
     database.Books = Books(sequelize)
 
 
-    // database.Ratings = Ratings(sequelize)
+    database.Ratings = Ratings(sequelize)
 
 
-    // database.Books.hasMany(database.Ratings)
-    // database.Ratings.belongsTo(database.Books)
+    database.Books.hasMany(database.Ratings)
+    database.Ratings.belongsTo(database.Books)
 
     await sequelize.sync({ alter: true })
 } catch(error) {
