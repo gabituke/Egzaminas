@@ -2,6 +2,7 @@ import { useContext } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import MainContext from '../../context/MainContext'
 import axios from 'axios'
+import logo from './Logo.svg'
 
 import './Header.css'
 
@@ -28,10 +29,10 @@ const Header = () => {
             <div className="container">
             <div className="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
                 <a href="/" className="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
-                    {/* <img src={logo} alt="Beauty Parlor" style={{ maxWidth: '40px' }} /> */}
+                    <img src={logo} alt="Beauty Parlor" style={{ maxWidth: '40px' }} />
                     <div className="d-block ms-3 lh-1">
-                        <h6 className="mb-0">RANDOM NAME 1</h6>
-                        <span className="text-uppercase fs-7 fw-semibold">RANDMOM NAME 2</span>
+                        
+                        <span className="text-uppercase fs-7 fw-semibold">Biblioteka</span>
                     </div>
                 </a>
 
@@ -39,6 +40,7 @@ const Header = () => {
                
               
                     {userInfo.role === 1 &&
+                    <>
                         <li>
                             <Link 
                             to="/admin/books" 
@@ -48,6 +50,16 @@ const Header = () => {
                             </Link>
                  
                         </li>
+                        <li>
+                        <Link 
+                        to="/admin/users" 
+                        className="nav-link px-2"
+                        >
+                            Visi vartotojai
+                        </Link>
+             
+                    </li>
+                        </>
                         
                         
 

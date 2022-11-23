@@ -2,7 +2,7 @@ import express from 'express'
 import bcrypt from 'bcrypt'
 import db from '../database/connect.js'
 import { registerValidator, loginValidator } from '../middleware/validate.js'
-import { auth } from '../middleware/auth.js' 
+import { auth, adminAuth } from '../middleware/auth.js' 
 
 const router = express.Router()
 
@@ -20,6 +20,18 @@ router.get('/', async (req, res) => {
         res.status(500).send('Įvyko serverio klaida')
     }
 })
+
+router.delete('/delete/:id', adminAuth, async (req, res) => {
+    try {
+        const user = await db.Users.findByPk(req.params.id)
+        await user.destroy()
+        res.send('Vartotojas sekmingai istrintas')
+    } catch(error) {
+        console.log(error)
+        res.status(500).send('Įvyko klaida')
+    }
+})
+
 
 
 router.post('/register', registerValidator, async (req, res) => {
