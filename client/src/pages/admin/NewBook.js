@@ -1,8 +1,7 @@
 import { useState, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
-import MainContext from '../context/MainContext'
-
+import MainContext from '../../context/MainContext'
 const NewBook = () => {
     const { setAlert } = useContext(MainContext)
     const navigate = useNavigate()

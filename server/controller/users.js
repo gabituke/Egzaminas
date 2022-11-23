@@ -6,6 +6,21 @@ import { auth } from '../middleware/auth.js'
 
 const router = express.Router()
 
+router.get('/', async (req, res) => {
+    try {
+        const users = await db.Users.findAll()
+        res.json(users)
+    } catch {
+        //Pirmas variantas grąžinti tik statusą
+        //res.status(500).end()
+
+        //Antras variantas grąžinti tik statusą
+        //res.sendStatus(500)
+
+        res.status(500).send('Įvyko serverio klaida')
+    }
+})
+
 
 router.post('/register', registerValidator, async (req, res) => {
     try {

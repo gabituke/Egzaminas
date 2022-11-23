@@ -12,6 +12,8 @@ import SingleBook from './pages/SingleBook'
 import NewBook from './pages/admin/NewBook'
 
 import EditBook from './pages/admin/EditBook'
+import AdminBooks from './pages/admin/AdminBooks'
+import AdminUsers from './pages/admin/AdminUsers'
 
 
 //Autentifikacijos komponentai
@@ -57,10 +59,12 @@ const App = () => {
             <Route path="/admin/books/new" element={<NewBook />} />
             
             <Route path="/admin/edit/:id" element={<EditBook />} />
+            <Route path="/admin/books" element={<AdminBooks />} />
+            <Route path="/admin/users" element={<AdminUsers />} />
             </Route>
   
           }
-            <Route path="/" element={<AllBooks />} />
+            <Route path="" element={<AllBooks />} />
 
 
              <Route path="books/single/:id" element={<SingleBook />} />

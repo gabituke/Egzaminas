@@ -11,7 +11,7 @@ const Books = (sequelize) => {
 			allowNull: false
 		},
 		isbn: {
-			type: DataTypes.INTEGER,
+			type: DataTypes.STRING,
 			allowNull: false
 		},
 		image: {

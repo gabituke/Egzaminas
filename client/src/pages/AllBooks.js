@@ -10,7 +10,7 @@ const AllBooks = () => {
 
 	useEffect(
 		() => {
-			let url = '/api/books /';
+			let url = '/api/books/';
 
 			axios.get(url).then((resp) => setBooks (resp.data)).catch((error) => {
 				console.log(error);

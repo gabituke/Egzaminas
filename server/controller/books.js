@@ -21,30 +21,7 @@ Router.get('/', async (req, res) => {
     }
 })
 
-//Vartotojo užsakymai
-Router.get('/user/', auth, async (req, res) => {
-    //Laikinas sprendimas
-    const user_id = req.session.user.id
 
-    try {
-        const books = await db.Books.findAll({
-            where: { userId: user_id },
-            include: [
-                { 
-                    model: db.Services, 
-                    include: db.Saloons
-                }, 
-                db.Workers,
-                db.Ratings
-            ],
-            group: ['id']
-        })
-        res.json(books)
-    } catch(error) {
-        console.log(error)
-        res.status(500).send('Įvyko klaida')
-    }
-})
 
 Router.get('/single/:id', adminAuth, async (req, res) => {
     try {

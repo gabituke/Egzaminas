@@ -7,10 +7,10 @@ import './SingleBook.css';
 
 
 
-const SinglePlace = () => {
+const SingleBook = () => {
     const { id } = useParams()
     const navigate = useNavigate()
-    const [place, setPlace] = useState({})
+    const [book, setBook] = useState({})
     
 
     const [alert, setAlert] = useState({
@@ -22,7 +22,7 @@ const SinglePlace = () => {
     const [refresh, setRefresh] = useState(false)
 
     useEffect(() => {
-        axios.get('/api/places/single/' + id)
+        axios.get('/api/books/single/' + id)
         .then(resp => {
             if(!resp.data) {
                
@@ -30,7 +30,7 @@ const SinglePlace = () => {
                 return 
             }
 
-            setPlace(resp.data)
+            setBook(resp.data)
         })
         .catch((error) => {
             console.log(error)
@@ -75,16 +75,16 @@ const SinglePlace = () => {
             <div className ="post">
                 <div className="left">
 
-                <img src={place.photo} alt={place.title}/>
+                <img src={book.image} alt={book.title}/>
 
                 </div>
 
 
 
                 <div className="right">
-                <h1>{place.title}</h1>
+                <h1>{book.title}</h1>
                 <div className="content">
-                    {place.description}
+                    {book.author}
                 </div>
                 </div>
 
@@ -97,8 +97,8 @@ const SinglePlace = () => {
                 <div className="form-comment">
                     
                             
-                            {place.ratings ? 'Jūsų įvertinimas: ' + place.ratings.rating :
-                                        <select onChange={(e) => handleRatings(e, place.placeId)}>
+                            {book.ratings ? 'Jūsų įvertinimas: ' + book.ratings.rating :
+                                        <select onChange={(e) => handleRatings(e, book.bookId)}>
                                             <option value="1">1</option>
                                             <option value="2">2</option>
                                             <option value="3">3</option>
@@ -125,4 +125,4 @@ const SinglePlace = () => {
     ) 
 }
 
-export default SinglePlace
+export default SingleBook

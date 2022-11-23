@@ -43,7 +43,7 @@ export const booksValidator = (req, res, next) => {
         title: Joi.string().min(5).max(255).required(),
         image: Joi.string().min(5).max(255).required(),
         author: Joi.string().min(5).max(255).required(),
-        isbn: Joi.number().required()
+        isbn: Joi.string().min(5).max(255).required(),
     })
 
     validate(schema, req, res, next)
