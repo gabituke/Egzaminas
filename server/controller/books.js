@@ -5,25 +5,19 @@ import { auth, adminAuth } from '../middleware/auth.js'
 
 const Router = express.Router()
 
-//Admino užsakymų sąrašas
-Router.get('/', adminAuth, async (req, res) => {
+
+Router.get('/', async (req, res) => {
     try {
-        const books = await db.Books.findAll({
-            include: [
-                { 
-                    model: db.Users,
-                    attributes: ['first_name', 'last_name']
-                },
-                { 
-                    model: db.Services,
-                    attributes: ['name']
-                }
-            ]
-        })
+        const books = await db.Books.findAll()
         res.json(books)
-    } catch(error) {
-        console.log(error)
-        res.status(500).send('Įvyko klaida')
+    } catch {
+        //Pirmas variantas grąžinti tik statusą
+        //res.status(500).end()
+
+        //Antras variantas grąžinti tik statusą
+        //res.sendStatus(500)
+
+        res.status(500).send('Įvyko serverio klaida')
     }
 })
 

@@ -1,6 +1,6 @@
 import { Sequelize } from 'sequelize'
 import mysql from 'mysql2/promise'
-import { Users, Books, Ratings } from '../model/index.js'
+import { Users, Books } from '../model/index.js'
 
 const database = {} 
 const credentials = {
