@@ -38,10 +38,12 @@ const validate = (schema, req, res, next) => {
     next()
 }
 
-export const postValidator = (req, res, next) => {
+export const booksValidator = (req, res, next) => {
     const schema = Joi.object({
         title: Joi.string().min(5).max(255).required(),
-        content: Joi.string().allow('')
+        image: Joi.string().min(5).max(255).required(),
+        author: Joi.string().min(5).max(255).required(),
+        isbn: Joi.number().required()
     })
 
     validate(schema, req, res, next)

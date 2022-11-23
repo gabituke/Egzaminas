@@ -23,11 +23,13 @@ try {
 
     database.Users = Users(sequelize)
     database.Books = Books(sequelize)
-    database.Ratings = Ratings(sequelize)
 
 
-    database.Books.hasMany(database.Ratings)
-    database.Ratings.belongsTo(database.Books)
+    // database.Ratings = Ratings(sequelize)
+
+
+    // database.Books.hasMany(database.Ratings)
+    // database.Ratings.belongsTo(database.Books)
 
     await sequelize.sync({ alter: true })
 } catch(error) {

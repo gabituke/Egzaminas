@@ -1,14 +1,24 @@
-import { DataTypes } from 'sequelize'
+import express from 'express'
+import db from '../database/connect.js'
 
-const Ratings = (sequelize) => {
-    const Schema = {
-        rating: {
-            type: DataTypes.INTEGER, 
-            allowNull: false 
-        }
+import { auth } from '../middleware/auth.js'
+
+const router = express.Router()
+
+router.post('/worker/:wid/order/:oid', auth, async (req, res) => {
+    const userId = req.session.user.id
+
+    req.body.workerId = req.params.wid
+    req.body.orderId = req.params.oid
+    req.body.userId = userId
+
+    try {
+        await db.Ratings.create(req.body)
+        res.send('Įvertinimas sėkmingai išsaugotas')
+    } catch(error) {
+        console.log(error)
+        res.status(500).send('Įvyko serverio klaida')
     }
+})
 
-    return sequelize.define('ratings', Schema)
-}
-
-export default Ratings
+export default router

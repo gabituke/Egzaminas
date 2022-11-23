@@ -1,60 +1,99 @@
 import express from 'express'
 import db from '../database/connect.js'
+import { booksValidator } from '../middleware/validate.js'
+import { auth, adminAuth } from '../middleware/auth.js'
 
-const router = express.Router()
+const Router = express.Router()
 
-router.get('/', async (req, res) => {
+//Admino užsakymų sąrašas
+Router.get('/', adminAuth, async (req, res) => {
     try {
-        const posts = await db.Posts.findAll()
-        res.json(posts)
-    } catch {
-        //Pirmas variantas grąžinti tik statusą
-        //res.status(500).end()
-
-        //Antras variantas grąžinti tik statusą
-        //res.sendStatus(500)
-
-        res.status(500).send('Įvyko serverio klaida')
+        const books = await db.Books.findAll({
+            include: [
+                { 
+                    model: db.Users,
+                    attributes: ['first_name', 'last_name']
+                },
+                { 
+                    model: db.Services,
+                    attributes: ['name']
+                }
+            ]
+        })
+        res.json(books)
+    } catch(error) {
+        console.log(error)
+        res.status(500).send('Įvyko klaida')
     }
 })
 
-router.get('/:id', async (req, res) => {
+//Vartotojo užsakymai
+Router.get('/user/', auth, async (req, res) => {
+    //Laikinas sprendimas
+    const user_id = req.session.user.id
+
     try {
-        const post = await db.Posts.findByPk(req.params.id)
-        res.json(post)
-    } catch {
-        res.status(500).send('Įvyko serverio klaida')
+        const books = await db.Books.findAll({
+            where: { userId: user_id },
+            include: [
+                { 
+                    model: db.Services, 
+                    include: db.Saloons
+                }, 
+                db.Workers,
+                db.Ratings
+            ],
+            group: ['id']
+        })
+        res.json(books)
+    } catch(error) {
+        console.log(error)
+        res.status(500).send('Įvyko klaida')
     }
 })
 
-router.post('/', async (req, res) => {
+Router.get('/single/:id', adminAuth, async (req, res) => {
     try {
-        new db.Posts(req.body).save()
-        res.json({ message: 'Knyga sekmingai įrašyta' })
-    } catch {
-        res.status(500).send('Įvyko serverio klaida')
+        const books = await db.Books.findByPk(req.params.id)
+        res.json(books)
+    } catch(error) {
+        console.log(error)
+        res.status(500).send('Įvyko klaida išsaugant duomenis')
     }
 })
 
-router.put('/edit/:id', async (req, res) => {
+Router.post('/new', booksValidator, async (req, res) => {
     try {
-        const post = await db.Posts.findByPk(req.params.id)
-        post.update(req.body)
-        res.json({ message: 'Įrašas sėkmingai atnaujintas'})
-    } catch {
-        res.status(500).send('Įvyko serverio klaida')
+        req.body.userId = req.session.user.id
+        
+        await db.Books.create(req.body)
+        res.send('Knyga sėkmingai issaugota')
+    } catch(error) {
+        console.log(error)
+        res.status(500).send('Įvyko klaida išsaugant duomenis')
     }
 })
 
-router.delete('/delete/:id', async (req, res) => {
+Router.put('/edit/:id', adminAuth, booksValidator, async (req, res) => {
     try {
-        const post = await db.Posts.findByPk(req.params.id)
-        post.destroy()
-        res.json({ message: 'Knyga sėkmingai ištrintas' })
-    } catch {
-        res.status(500).send('Įvyko serverio klaida')
+        const book = await db.Books.findByPk(req.params.id)
+        await book.update(req.body)
+        res.send('Knyga sėkmingai atnaujinta')
+    } catch(error) {
+        console.log(error)
+        res.status(500).send('Įvyko klaida išsaugant duomenis')
     }
 })
 
+Router.delete('/delete/:id', adminAuth, async (req, res) => {
+    try {
+        const book = await db.Books.findByPk(req.params.id)
+        await book.destroy()
+        res.send('Knyga sėkmignai ištrinta')
+    } catch(error) {
+        console.log(error)
+        res.status(500).send('Įvyko klaida')
+    }
+})
 
-export default router
+export default Router
